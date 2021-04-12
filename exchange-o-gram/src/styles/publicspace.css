@@ -4,10 +4,13 @@
     padding:0;
     box-sizing: border-box;
 }
-
+.publicspace
+{
+padding:1rem;
+}
 .publicspace > span
 {
     
-    margin-top:2rem;
+   
     font-weight: bold;
 }

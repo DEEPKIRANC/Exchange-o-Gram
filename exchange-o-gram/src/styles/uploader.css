@@ -5,8 +5,11 @@
     box-sizing: border-box;
 }
 
+
+
 .ideaInfo
 {
+    
     max-width: 600px;
     padding:0.75rem;
     margin:0 auto;
@@ -16,9 +19,12 @@
     border-radius: 5px;
     margin-top: 2rem;
     line-height: 1.6;
+    font-size: 0.80rem;
+    box-shadow: 5px 10px 10px #DB2777;
+    font-weight: bold;
 }
 
-.uploadSection > h3
+.uploadSection > h3,h5
 {
 margin-top: 2rem;
 }

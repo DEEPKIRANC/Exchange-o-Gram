@@ -19,11 +19,12 @@ function Uploader() {
                 
                 <div className="ideaInfo">
                     <p>This app is inspired by the idea of Billy (from the movie "The Internship") , where he proposed this idea of building an app which would allow the users to instantaneously click photos and share <b>on-the-line(online)</b>😉.
-                    <p>So upload your pictures in our public space and get appreciated from people all around the world. The picture with highest number of likes will remain on top. </p>
-                    </p>             
+                    So upload your pictures in our public space and get appreciated from people all around the world. The picture with highest number of likes will remain on top. </p>
+                                 
                 </div>
-                
+                <h5>(Click on below icon to upload a picture)</h5>
                 <button className="openBTN" onClick={openUploader}>+</button>
+               
             <div ref={divModal} id="modal" className="uploaderModal">
                 <form>
                     <span ref={closeBtn} className="close">&times;</span>
