@@ -1,6 +1,17 @@
-import React,{useRef} from 'react'
-import "../styles/uploader.css"
+import React,{useState,useRef} from 'react';
+import ProgressBar from "./ProgressBar";
+
+import "../styles/uploader.css";
 function Uploader() {
+    const [username,setUsername]=useState("");
+    const [file,setFile]=useState(null);
+    const [category,setCategory]=useState("General");
+    const [modalState,setModalstate]=useState(false);
+    const [error,setError]=useState("");
+
+    const types=["image/png","image/jpeg"];
+
+
     const divModal=useRef();
     const closeBtn=useRef();
     const openUploader=()=>{
@@ -12,6 +23,44 @@ function Uploader() {
             
         }
     }
+
+    //handling Images
+
+    const changeHandler=(e)=>{
+        let selected=e.target.files[0];
+        console.log(selected);
+        if(selected && types.includes(selected.type))
+        {
+            setFile(selected);
+            
+            setError("");
+            console.log(file);
+        }
+        else
+        {
+            setFile(null);
+            setError('Please select a valid image file(png/jpeg)');
+        }
+    }
+
+
+
+
+    //form submission for image upload
+
+
+
+
+    const submitImage=(e)=>{
+        e.preventDefault();
+        divModal.current.style.display="none";
+        console.log("User" ,username , "Category : ",category);
+        setModalstate(true);
+    
+    }
+
+
+
     return (
         <div className="uploadSection">
                 <h3>Welcome To <i>Exchange-o-Gram</i></h3>
@@ -24,24 +73,35 @@ function Uploader() {
                 </div>
                 <h5>(Click on below icon to upload a picture)</h5>
                 <button className="openBTN" onClick={openUploader}>+</button>
-               
+
+                {(file && modalState) && <ProgressBar
+                 file={file} 
+                 setfile={setFile}
+                 user={username} 
+                 category={category} 
+                 setUser={setUsername} 
+                 setCategory={setCategory} 
+                 setModal={setModalstate}
+                 />}
+
             <div ref={divModal} id="modal" className="uploaderModal">
                 
-                <form>
+                <form onSubmit={submitImage}>
                     <span ref={closeBtn} className="close">&times;</span>
                     <div className="upload__image">
-                        <input type="file"/>
-                        <input style={{paddingLeft:"0.5rem"}} type="text" placeholder="Uploaded By.." />
+                        <input type="file" onChange={changeHandler}/>
+                        <input required="required" value={username} onChange={(e)=>setUsername(e.target.value)} style={{paddingLeft:"0.5rem"}} type="text" placeholder="Uploaded By.." />
                         <div>
                             <label style={{fontSize:"0.80rem",fontWeight:"bold"}} >Choose a category : </label>
-                            <select name="category" id="category">
-                                <option value="general">General</option>
+                            <select  name="category" id="category" value={category} onChange={e=>setCategory(e.target.value)}>
+                                <option value="General">General</option>
                                 <option value="Food">Food</option>
                                 <option value="Nature">Nature</option>
                                     
                                 </select>
                         </div>     
-                        <button>Upload Picture</button>
+                        <button type="submit">Upload Picture</button>
+                        {error && <div>{error}</div>}    
                     </div>
                 </form>
             </div>       
