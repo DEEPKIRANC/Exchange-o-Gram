@@ -1,0 +1,33 @@
+*
+{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+.header
+{
+    display: flex;
+    justify-content: space-between;
+    padding:0.5rem;
+    background-color: #DB2777;
+    box-shadow:5px 10px 18px #333;
+}
+.title
+{
+    
+    color:white;
+    font-weight: normal;
+
+}
+.header__elements
+{
+    display: flex;
+    padding:0.5rem;
+    color:white;
+    
+}
+.header__elements >span:nth-child(2)
+{
+    margin-left: 1rem;
+}
