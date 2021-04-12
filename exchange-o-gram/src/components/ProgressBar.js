@@ -17,8 +17,8 @@ function ProgressBar({file,setfile,user,category,setUser,setModal}) {
     },[url,setfile,setUser,setModal])
     
     return (
-        <div>
-            <div style={{height:"3px",backgroundColor:"black",width:progress + "%"}}>Uploading</div>
+        <div style={{padding:"1rem"}}>
+            <div style={{height:"5px",backgroundColor:"black",width:progress + "%"}}>Uploading</div>
         </div>
     )
 }

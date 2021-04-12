@@ -11,12 +11,13 @@ function Uploader() {
 
     const types=["image/png","image/jpeg"];
 
-
+    const fileRef=useRef();
     const divModal=useRef();
     const closeBtn=useRef();
     const openUploader=()=>{
         console.log(divModal);
         divModal.current.style.display="block";
+        fileRef.current.value=null;
         closeBtn.current.onclick=function()
         {
             divModal.current.style.display="none";
@@ -89,7 +90,7 @@ function Uploader() {
                 <form onSubmit={submitImage}>
                     <span ref={closeBtn} className="close">&times;</span>
                     <div className="upload__image">
-                        <input type="file" onChange={changeHandler}/>
+                        <input ref={fileRef} type="file" onChange={changeHandler}/>
                         <input required="required" value={username} onChange={(e)=>setUsername(e.target.value)} style={{paddingLeft:"0.5rem"}} type="text" placeholder="Uploaded By.." />
                         <div>
                             <label style={{fontSize:"0.80rem",fontWeight:"bold"}} >Choose a category : </label>
