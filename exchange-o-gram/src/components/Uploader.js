@@ -26,10 +26,13 @@ function Uploader() {
                 <button className="openBTN" onClick={openUploader}>+</button>
                
             <div ref={divModal} id="modal" className="uploaderModal">
+                
                 <form>
                     <span ref={closeBtn} className="close">&times;</span>
-                    <input type="file"/>
-                    <button>Upload Picture</button>
+                    <div className="upload__image">
+                        <input  type="file"/>
+                        <button>Upload Picture</button>
+                    </div>
                 </form>
             </div>       
         </div>

@@ -68,13 +68,13 @@ margin-top: 2rem;
     top:0;
     left:0;
     background-color: rgb(0,0,0);
-    background-color: rgba(253, 252, 252, 0.8);
+    background-color: rgb(0,0,0,0.8);
 }
 .close {
     position: absolute;
     top: 15px;
     right: 35px;
-    color: black;
+    color:white;
     font-size: 40px;
     font-weight: bold;
     transition: 0.3s;
@@ -82,7 +82,28 @@ margin-top: 2rem;
   
   .close:hover,
   .close:focus {
-    color: #333;
+    color: #DB2777;
     text-decoration: none;
     cursor: pointer;
+  }
+
+  .upload__image
+  {
+      background-color: white;
+      padding:1rem;
+      max-width: 50%;
+      margin:0 auto;
+      border-radius: 10px;
+  }
+  .upload__image > input
+  {
+      padding:0.5rem;
+  }
+  .upload__image button
+  {
+      padding:0.5rem;
+      border:1px solid black;
+      font-family: 'Noto Serif';
+      background-color:#DB2777;
+      color:white;
   }
