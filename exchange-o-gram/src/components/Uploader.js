@@ -30,7 +30,17 @@ function Uploader() {
                 <form>
                     <span ref={closeBtn} className="close">&times;</span>
                     <div className="upload__image">
-                        <input  type="file"/>
+                        <input type="file"/>
+                        <input style={{paddingLeft:"0.5rem"}} type="text" placeholder="Uploaded By.." />
+                        <div>
+                            <label style={{fontSize:"0.80rem",fontWeight:"bold"}} >Choose a category : </label>
+                            <select name="category" id="category">
+                                <option value="general">General</option>
+                                <option value="Food">Food</option>
+                                <option value="Nature">Nature</option>
+                                    
+                                </select>
+                        </div>     
                         <button>Upload Picture</button>
                     </div>
                 </form>

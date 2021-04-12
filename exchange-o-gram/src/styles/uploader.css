@@ -69,6 +69,8 @@ margin-top: 2rem;
     left:0;
     background-color: rgb(0,0,0);
     background-color: rgb(0,0,0,0.8);
+    user-select: none;
+    outline:none;
 }
 .close {
     position: absolute;
@@ -90,20 +92,40 @@ margin-top: 2rem;
   .upload__image
   {
       background-color: white;
-      padding:1rem;
-      max-width: 50%;
+      padding:1.5rem;
+      max-width: 80%;
       margin:0 auto;
       border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap:wrap;
+      justify-content: space-between;
+      align-items: center;
+      max-height: 80%;
+      outline: none;
+      
+     
   }
-  .upload__image > input
-  {
-      padding:0.5rem;
-  }
+.upload__image input
+{
+margin-bottom: 0.5rem;
+max-width:fit-content;
+border:1px solid #333;
+
+}
+
   .upload__image button
   {
       padding:0.5rem;
+      margin-top:1rem;
       border:1px solid black;
       font-family: 'Noto Serif';
       background-color:#DB2777;
       color:white;
+      cursor:pointer;
+  }
+  .upload__image option
+  {
+      padding:0;
+      font-size: small;
   }
