@@ -12,20 +12,42 @@
     padding:0.5rem;
     background-color: #DB2777;
     box-shadow:5px 10px 18px #333;
+    user-select: none;
 }
 .title
 {
     
     color:white;
     font-weight: normal;
+    font-style: italic;
+    font-family:'Noto Serif';
+    font-size: 1rem;
 
+}
+.title span
+{
+    font-style: normal;
 }
 .header__elements
 {
     display: flex;
     padding:0.5rem;
     color:white;
+    cursor:pointer;
+    outline: none;
+    user-select: none;
     
+}
+.header__elements span
+{
+    padding-bottom: 0.25rem;
+    border-bottom:2px solid #DB2777;
+    transition: 0.3s;
+    font-size: 0.75rem;
+}
+.header__elements span:hover
+{
+    border-bottom:2px solid white;
 }
 .header__elements >span:nth-child(2)
 {
