@@ -24,7 +24,22 @@ function PublicSpace() {
         setLikeStatus(false);
     }
 */} 
-    const {docs}=useFirestore("images");
+    const {docs,setDocs}=useFirestore("images");
+
+    useEffect(() => {
+        
+        var list=localStorage.getItem("docsList");
+        if(list)
+        {
+            setDocs(JSON.parse(list));
+        }
+        
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem("docsList",JSON.stringify(docs));
+    }, [docs])
+    
     return (
         <div className="publicspace">
             
