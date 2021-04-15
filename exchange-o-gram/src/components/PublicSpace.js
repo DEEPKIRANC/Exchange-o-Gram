@@ -8,10 +8,10 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 function PublicSpace() {
-    
-    const [value,setValue]=useState("recent");
-    const [category,setCategory]=useState("General");
-    const [copy,setCopy]=useState([]);
+    const [likeStatus,setLikeStatus]=useState(false);
+    const [value,setValue]=useState("recent"); //filter radio button
+    const [category,setCategory]=useState("General");//category dropdown
+    const [copy,setCopy]=useState([]);//copy of array for applying filters
     const modalRef=useRef();
     const closeBtn=useRef();
     
@@ -23,6 +23,7 @@ function PublicSpace() {
         btnref.style.color="#D1D5DB";
         btnref.style.borderColor="#D1D5DB";
         btnref.disabled=true;
+        setLikeStatus(!likeStatus);
         
     }
 {/*
@@ -40,7 +41,7 @@ function PublicSpace() {
     //Using Local storage to improve the bandwidth usage and storing a copy of docs returned to implement filter options!
     useEffect(()=>{
         setCopy(docs);
-    },[docs])
+    },[likeStatus,docs])
     useEffect(() => {
         AOS.init({duration:2000});
         
@@ -71,12 +72,15 @@ function PublicSpace() {
         e.preventDefault();
         if(value==="recent")
         {
+            setCopy(docs);
             const recentDocs=copy.filter(doc=>doc.category===category).sort((doc1,doc2)=>doc2.createdAt-doc1.createdAt);
             setCopy(recentDocs);
 
         }
         else
         {
+            setCopy(docs);
+            console.log(copy);
             const mostLikedDocs=copy.filter(doc=>doc.category===category).sort((doc1,doc2)=>doc2.likeCount-doc1.likeCount);
             setCopy(mostLikedDocs);
         }
@@ -100,7 +104,7 @@ function PublicSpace() {
 
             <button className="add-filters" disabled={!docs} onClick={handleClick}> Add Filters </button>
             <button className="remove-filters" onClick={handleRemove}>Remove Filters</button>
-
+            <p style={{textAlign:"center",fontWeight:"bold",fontSize:"0.65rem",marginTop:"1rem"}}>(Note: Use Remove Filter before adding new filters)</p>
 
             <div ref={modalRef} className="modal" id="modal">
                 <span ref={closeBtn} className="close">&times;</span>
