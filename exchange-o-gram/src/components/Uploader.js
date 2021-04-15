@@ -9,6 +9,12 @@ function Uploader() {
     const [modalState,setModalstate]=useState(false);
     const [error,setError]=useState("");
 
+
+    const MAX_WIDTH = 320;
+    const MAX_HEIGHT = 320;
+    const MIME_TYPE = "image/jpeg";
+    const QUALITY =1.0;
+
     const types=["image/png","image/jpeg"];
 
     const fileRef=useRef();
@@ -25,6 +31,28 @@ function Uploader() {
         }
     }
 
+    //
+
+    function calculateSize(img, maxWidth, maxHeight) {
+        let width = img.width;
+        let height = img.height;
+      
+        // calculate the width and height, constraining the proportions
+        if (width > height) {
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width = Math.round((width * maxHeight) / height);
+            height = maxHeight;
+          }
+        }
+        return [width, height];
+      }
+      
+
     //handling Images
 
     const changeHandler=(e)=>{
@@ -32,7 +60,38 @@ function Uploader() {
         console.log(selected);
         if(selected && types.includes(selected.type))
         {
-            setFile(selected);
+            // code for image compression
+            const blobURL = URL.createObjectURL(selected);
+            const img = new Image();
+            img.src = blobURL;
+            img.onerror = function () {
+                URL.revokeObjectURL(this.src);
+                // Handle the failure properly
+                console.log("Cannot load image");
+            };
+                img.onload = function () {
+                    URL.revokeObjectURL(this.src);
+                    const [newWidth, newHeight] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
+                    const canvas = document.createElement("canvas");
+                    canvas.width = newWidth;
+                    canvas.height = newHeight;
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, newWidth, newHeight);
+                    canvas.toBlob(
+                    (blob) => {
+                        // blob=compressed image
+                        blob.name=selected.name;
+                        setFile(blob);
+                    }
+                        ,
+                    MIME_TYPE,
+                    QUALITY
+                    );
+
+
+                }
+
+           
             
             setError("");
             console.log(file);
@@ -69,7 +128,7 @@ function Uploader() {
                 
                 <div className="ideaInfo">
                     <p>This app is inspired by the idea of Billy (from the movie "The Internship") , where he proposed this idea of building an app which would allow the users to instantaneously click photos and share <b>on-the-line(online)</b>😉.
-                    So upload your pictures in our public space and get appreciated from people all around the world. The picture with highest number of likes will remain on top. </p>
+                    So upload your pictures in our Public Space and get appreciated from people all around the world. You can also check out <b>My Space </b> Section to store personal memories.  </p>
                                  
                 </div>
                 <h5>(Click on below icon to upload a picture)</h5>
