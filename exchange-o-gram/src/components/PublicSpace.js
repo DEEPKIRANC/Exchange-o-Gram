@@ -104,7 +104,8 @@ function PublicSpace() {
                 <span ref={closeBtn} className="close">&times;</span>
                 
                 <form onSubmit={handleFilters}>
-                    <label style={{fontSize:"0.80rem",fontWeight:"bold"}} >Choose Category : </label>
+                    <div className="filterForm">
+                        <label style={{fontSize:"0.80rem",fontWeight:"bold"}} >Choose Category</label>
                             <select  name="category" id="category" value={category} onChange={e=>setCategory(e.target.value)}>
                                
                                 <option value="General">General</option>
@@ -119,7 +120,7 @@ function PublicSpace() {
                             </RadioGroup>
 
                             <button type="submit">Apply Filters</button>
-
+                    </div>
                 </form>
             </div>
 
@@ -131,6 +132,7 @@ function PublicSpace() {
                     <div data-aos="fade-up" key={doc.id} className="image-card">
                        <img src={doc.url}/>
                        <h4>Uploaded By : {doc.user}</h4>
+                       <h5>Category : {doc.category}</h5>
                        <h5>Liked By {doc.likeCount} people </h5>
                        <div className="choices">
                             <button id={doc.id} className="likeBtn" onClick={()=>updateLikeCounter(doc.id)}>Like</button>
