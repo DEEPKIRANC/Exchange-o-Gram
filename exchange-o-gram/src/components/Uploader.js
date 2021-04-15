@@ -128,7 +128,7 @@ function Uploader() {
                 
                 <div className="ideaInfo">
                     <p>This app is inspired by the idea of Billy (from the movie "The Internship") , where he proposed this idea of building an app which would allow the users to instantaneously click photos and share <b>on-the-line(online)</b>😉.
-                    So upload your pictures in our Public Space and get appreciated from people all around the world. You can also check out <b>My Space </b> Section to store personal memories.  </p>
+                    So upload your pictures in our Public Space and get appreciated from people all around the world. You can also check out <b>My Space </b> Section to save your personal memories.  </p>
                                  
                 </div>
                 <h5>(Click on below icon to upload a picture)</h5>
@@ -154,11 +154,12 @@ function Uploader() {
                         <div>
                             <label style={{fontSize:"0.80rem",fontWeight:"bold"}} >Choose a category : </label>
                             <select  name="category" id="category" value={category} onChange={e=>setCategory(e.target.value)}>
+                               
                                 <option value="General">General</option>
                                 <option value="Food">Food</option>
                                 <option value="Nature">Nature</option>
                                     
-                                </select>
+                            </select>
                         </div>     
                         <button type="submit">Upload Picture</button>
                         {error && <div>{error}</div>}    

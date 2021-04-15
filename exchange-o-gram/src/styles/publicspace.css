@@ -13,6 +13,7 @@ padding:1rem;
     
    
     font-weight: bold;
+    display: block;
 }
 
 .image-grid
@@ -74,3 +75,56 @@ padding:1rem;
     outline:none;
     user-select: none;
 }
+
+
+.modal
+{
+    display: none;
+    z-index: 1;
+    position:fixed;
+    width:100%;
+    height:100%;
+    padding-top:200px;
+    top:0;
+    left:0;
+    background-color: rgb(0,0,0);
+    background-color: rgb(0,0,0,0.8);
+    user-select: none;
+    outline:none;
+}
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color:white;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #DB2777;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .add-filters
+  {
+      padding:0.5rem;
+      background-color: black;
+      color:#DB2777;
+      outline:none;
+      margin-top: 1.5rem;
+      font-weight: bold;
+      user-select: none;
+      font-size: 0.80rem;
+      border-radius: 10px;
+      cursor:pointer;
+      transition:0.3s;
+  }
+  .add-filters:hover,
+  .add-filters:focus
+  {
+      background-color:#DB2777;
+      color:white;
+  }
