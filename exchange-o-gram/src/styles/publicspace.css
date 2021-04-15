@@ -178,4 +178,7 @@ padding:1rem;
       color:white;
       font-weight: bold;
       font-size: 0.7rem;
+      outline: none;
+      user-select: none;
+      cursor: pointer;
   }

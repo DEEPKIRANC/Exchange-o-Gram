@@ -40,7 +40,7 @@ function PublicSpace() {
     //Using Local storage to improve the bandwidth usage and storing a copy of docs returned to implement filter options!
     useEffect(()=>{
         setCopy(docs);
-    },[])
+    },[docs])
     useEffect(() => {
         AOS.init({duration:2000});
         
@@ -73,13 +73,15 @@ function PublicSpace() {
         {
             const recentDocs=copy.filter(doc=>doc.category===category).sort((doc1,doc2)=>doc2.createdAt-doc1.createdAt);
             setCopy(recentDocs);
+
         }
         else
         {
             const mostLikedDocs=copy.filter(doc=>doc.category===category).sort((doc1,doc2)=>doc2.likeCount-doc1.likeCount);
             setCopy(mostLikedDocs);
         }
-
+        setCategory("General");
+        setValue("recent");
         modalRef.current.style.display="none";
 
 

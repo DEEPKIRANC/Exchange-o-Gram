@@ -154,7 +154,6 @@ function Uploader() {
                         <div>
                             <label style={{fontSize:"0.80rem",fontWeight:"bold"}} >Choose a category : </label>
                             <select  name="category" id="category" value={category} onChange={e=>setCategory(e.target.value)}>
-                               
                                 <option value="General">General</option>
                                 <option value="Food">Food</option>
                                 <option value="Nature">Nature</option>
