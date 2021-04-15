@@ -121,10 +121,36 @@ padding:1rem;
       border-radius: 10px;
       cursor:pointer;
       transition:0.3s;
+      display: inline;
+
   }
   .add-filters:hover,
   .add-filters:focus
   {
       background-color:#DB2777;
       color:white;
+  }
+
+  .remove-filters
+  {
+    padding:0.5rem;
+    background-color: #DB2777;
+    color:white;
+    outline:none;
+    
+    font-weight: bold;
+    user-select: none;
+    font-size: 0.80rem;
+    border-radius: 10px;
+    cursor:pointer;
+    transition:0.3s;
+    margin-left:0.5rem;
+
+  }
+
+  .remove-filters:hover,
+  .remove-filters:focus
+  {
+      background-color: black;
+      color:#DB2777;
   }

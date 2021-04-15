@@ -11,6 +11,7 @@ function PublicSpace() {
     
     const [value,setValue]=useState("recent");
     const [category,setCategory]=useState("General");
+    const [copy,setCopy]=useState([]);
     const modalRef=useRef();
     const closeBtn=useRef();
     
@@ -35,14 +36,18 @@ function PublicSpace() {
 
 
     const {docs,setDocs}=useFirestore("images");
-
-    //Using Local storage to improve the bandwidth usage
+    
+    //Using Local storage to improve the bandwidth usage and storing a copy of docs returned to implement filter options!
+    useEffect(()=>{
+        setCopy(docs);
+    },[])
     useEffect(() => {
         AOS.init({duration:2000});
+        
         var list=localStorage.getItem("docsList");
         if(list)
         {
-            setDocs(JSON.parse(list));
+            setCopy(JSON.parse(list));
         }
         
     }, [])
@@ -66,24 +71,33 @@ function PublicSpace() {
         e.preventDefault();
         if(value==="recent")
         {
-            const recentDocs=docs.filter(doc=>doc.category===category).sort((doc1,doc2)=>doc2.createdAt-doc1.createdAt);
-            setDocs(recentDocs);
+            const recentDocs=copy.filter(doc=>doc.category===category).sort((doc1,doc2)=>doc2.createdAt-doc1.createdAt);
+            setCopy(recentDocs);
         }
         else
         {
-            const mostLikedDocs=docs.filter(doc=>doc.category===category).sort((doc1,doc2)=>doc2.likeCount-doc1.likeCount);
-            setDocs(mostLikedDocs);
+            const mostLikedDocs=copy.filter(doc=>doc.category===category).sort((doc1,doc2)=>doc2.likeCount-doc1.likeCount);
+            setCopy(mostLikedDocs);
         }
 
+        modalRef.current.style.display="none";
 
+
+    }
+
+    const handleRemove=(e)=>
+    {
+        console.log(docs);
+        setCopy(docs);
     }
     return (
         <div className="publicspace">
             
-            <span className="secondary">Pictures Uploaded till now : {docs.length}</span>
+            <span className="secondary">Pictures Uploaded till now : {copy.length}</span>
 
 
             <button className="add-filters" disabled={!docs} onClick={handleClick}> Add Filters </button>
+            <button className="remove-filters" onClick={handleRemove}>Remove Filters</button>
 
 
             <div ref={modalRef} className="modal" id="modal">
@@ -113,7 +127,7 @@ function PublicSpace() {
 
             
             <div className="image-grid">
-               {docs.map((doc)=>(
+               {copy.map((doc)=>(
                     <div data-aos="fade-up" key={doc.id} className="image-card">
                        <img src={doc.url}/>
                        <h4>Uploaded By : {doc.user}</h4>
