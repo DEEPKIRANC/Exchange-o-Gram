@@ -1,6 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import Login from "./login";
 import {firebaseApp} from "../firebase";
+import PersonalUploader from "./PersonalUploader";
+import PersonalImageGrid from './PersonalImageGrid';
 function PersonalSpace() {
     const [user,setUser]=useState("");
     const [email,setEmail]=useState("");
@@ -8,6 +10,7 @@ function PersonalSpace() {
     const [emailError,setEmailError]=useState("");
     const [passwordError,setPasswordError]=useState("");
     const [hasAccount,setHasAccount]=useState(false);
+    
     
 
     const clearInputs=()=>{
@@ -40,7 +43,8 @@ function PersonalSpace() {
                         break;
                     }
             })
-    }
+           
+        }
     
 
     const handleSignup=()=>{
@@ -63,7 +67,7 @@ function PersonalSpace() {
                        break;
                    }
            })
-
+         
    }
 
 
@@ -92,8 +96,17 @@ function PersonalSpace() {
    },[]);
     return (
         <div>
-            {user?(<button onClick={handleLogOut}>Log Out</button>):
+            {user?(
+            <div>    
+            <button style={{marginTop:"1rem",cursor:"pointer",outline:"none",padding:"0.5rem",backgroundColor:"black",color:"white"}}onClick={handleLogOut}>Log Out</button>
+           
+            <PersonalUploader email={user.email}/>
+
+            <PersonalImageGrid email={user.email}/>    
+            </div>
+            ):
             (
+               
             <Login
             user={user}
             setUser={setUser}
@@ -110,7 +123,8 @@ function PersonalSpace() {
             
             hasAccount={hasAccount}
             setHasAccount={setHasAccount}
-            />)
+            />
+           )
             }
         </div>
     )

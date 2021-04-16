@@ -8,9 +8,9 @@ function header() {
             <div className="header__elements">
                 
                 <span>
-                    <Link to="/">Home</Link>
+                    <Link style={{textDecoration:"none",color:"white",fontWeight:"bold"}} to="/">Home</Link>
                 </span>
-                <span><Link to="/login">My Space</Link></span>
+                <span><Link style={{textDecoration:"none",color:"white",fontWeight:"bold"}} to="/login">My Space</Link></span>
             </div>
         </div>
     )
