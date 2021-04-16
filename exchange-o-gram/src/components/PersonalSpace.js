@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import Login from "./login";
-import {auth} from "../firebase";
+import {firebaseApp} from "../firebase";
 function PersonalSpace() {
     const [user,setUser]=useState("");
     const [email,setEmail]=useState("");
@@ -10,30 +10,90 @@ function PersonalSpace() {
     const [hasAccount,setHasAccount]=useState(false);
     
 
+    const clearInputs=()=>{
+        setEmail('');
+        setPassword('');
+    }
+
+    const clearErrors=()=>{
+        setEmailError('');
+        setPasswordError('');
+    }
 
     const handleLogin=()=>{
-         auth
+        console.log("Login clicked");
+        clearErrors();
+         firebaseApp
          .auth()
          .signInWithEmailAndPassword(email,password)
          .catch(err=>
             {
                 switch(err.code)
                 {
-                    case "auth-invalid-email":
-                    case "user-disabled":
-                    case "user-not-found":
+                    case "auth/invalid-email":
+                    case "auth/user-disabled":
+                    case "auth/user-not-found":
                         setEmailError(err.message);
                         break;
-                    case "auth/wrong password":
+                    case "auth/wrong-password":
                         setPasswordError(err.message);           
                         break;
                     }
             })
     }
     
+
+    const handleSignup=()=>{
+        console.log("Signup clicked");
+        clearErrors();
+        firebaseApp
+        .auth()
+        .createUserWithEmailAndPassword(email,password)
+        .catch(err=>
+           {
+               switch(err.code)
+               {
+                   case "auth/email-already-in-use":
+                   case "auth/invalid-email":
+                   
+                       setEmailError(err.message);
+                       break;
+                   case "auth/weak-password":
+                       setPasswordError(err.message);           
+                       break;
+                   }
+           })
+
+   }
+
+
+   const handleLogOut=()=>{
+     firebaseApp.auth().signOut();
+     alert("You have been logged out!");
+   }
+
+   const authListener=()=>{
+       firebaseApp.auth().onAuthStateChanged((user)=>{
+           if(user)
+           {
+               clearInputs();
+               setUser(user);
+               
+           }
+           else
+           {
+               setUser("");
+           }
+       });
+   };
+
+   useEffect(()=>{
+       authListener();
+   },[]);
     return (
         <div>
-            {!user &&
+            {user?(<button onClick={handleLogOut}>Log Out</button>):
+            (
             <Login
             user={user}
             setUser={setUser}
@@ -41,13 +101,16 @@ function PersonalSpace() {
             setEmail={setEmail}
             password={password}
             setPassword={setPassword}
+            handleLogin={handleLogin}
+            handleSignup={handleSignup}
+            
             emailError={emailError}
-            setEmailError={setEmailError}
+            
             passwordError={passwordError}
-            setPasswordError={setPasswordError}
+            
             hasAccount={hasAccount}
             setHasAccount={setHasAccount}
-            />
+            />)
             }
         </div>
     )

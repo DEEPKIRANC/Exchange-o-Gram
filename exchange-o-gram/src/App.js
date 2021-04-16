@@ -4,7 +4,7 @@ import Uploader from './components/Uploader';
 import Header from './components/Header';
 import PersonalSpace from "./components/PersonalSpace";
 import {BrowserRouter as Router,Switch,Route} from "react-router-dom";
-import PersonalSpace from './components/PersonalSpace';
+
 
 function App() {
  
@@ -13,12 +13,13 @@ function App() {
         <div className="App">
           <Header />
           <Switch>
-              <Route path="/login" exact>
-                <PersonalSpace />
-              </Route>  
-              <Route path="/" exact> 
+              <Route path="/" exact>
                   <Uploader />
                   <PublicSpace />
+                
+              </Route>  
+              <Route path="/login" > 
+                <PersonalSpace />  
               </Route> 
               
           </Switch>
