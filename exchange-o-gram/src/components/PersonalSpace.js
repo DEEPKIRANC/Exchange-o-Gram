@@ -24,7 +24,7 @@ function PersonalSpace() {
     }
 
     const handleLogin=()=>{
-        console.log("Login clicked");
+        
         clearErrors();
          firebaseApp
          .auth()
@@ -43,7 +43,7 @@ function PersonalSpace() {
                         break;
                     }
             })
-           
+          alert("You are being logged in!"); 
         }
     
 

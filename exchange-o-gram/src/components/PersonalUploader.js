@@ -125,7 +125,7 @@ function PersonalUploader(email) {
                 
                 
                 <div className="ideaInfo">
-                    <p style={{textAlign:"center"}}>Upload pictures , add a note and save you personal memories here ! </p>
+                    <p style={{textAlign:"center"}}>Upload pictures , add a note and save your personal memories here ! </p>
                                  
                 </div>
                 <h5>(Click on below icon to upload a picture)</h5>

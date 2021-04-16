@@ -123,7 +123,7 @@ function Uploader() {
 
     return (
         <div className="uploadSection">
-                <h3>Welcome To <i>Exchange-o-Gram</i></h3>
+                <h3>Welcome To <i style={{color:'#DB2777'}}>Exchange-o-Gram</i></h3>
                 
                 
                 <div className="ideaInfo">
