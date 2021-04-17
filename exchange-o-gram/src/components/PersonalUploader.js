@@ -146,7 +146,7 @@ function PersonalUploader(email) {
                     
                     <div className="upload__image">
                         <input ref={fileRef} type="file" onChange={changeHandler}/>
-                        <input required="required" value={title} onChange={(e)=>setTitle(e.target.value)} style={{paddingLeft:"0.5rem"}} type="text" placeholder="Add a Note" />
+                        <input required="required" value={title} onChange={(e)=>setTitle(e.target.value)} style={{paddingLeft:"0.5rem",padding:"0.5rem"}} type="text" placeholder="Add a Note" />
                         <button type="submit">Upload Picture</button>
                         {error && <div>{error}</div>}    
                     </div>
