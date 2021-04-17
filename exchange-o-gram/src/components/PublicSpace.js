@@ -24,16 +24,10 @@ function PublicSpace() {
         btnref.style.borderColor="#D1D5DB";
         btnref.disabled=true;
         setLikeStatus(!likeStatus);
+      
         
     }
-{/*
-    const decreaseLikeCounter=(id)=>{
-        const decrement=firebase.firestore.FieldValue.increment(-1);
-       
-        db.collection("images").doc(id).update({likeCount:decrement});
-        setLikeStatus(false);
-    }
-*/} 
+
 
 
     const {docs,setDocs}=useFirestore("images");
@@ -68,12 +62,13 @@ function PublicSpace() {
         
     }
 
+    
     const handleFilters=(e)=>{
         e.preventDefault();
         if(value==="recent")
         {
             setCopy(docs);
-            const recentDocs=copy.filter(doc=>doc.category===category).sort((doc1,doc2)=>doc2.createdAt-doc1.createdAt);
+            const recentDocs=docs.filter(doc=>doc.category===category).sort((doc1,doc2)=>doc2.createdAt-doc1.createdAt);
             setCopy(recentDocs);
 
         }
@@ -81,10 +76,10 @@ function PublicSpace() {
         {
             setCopy(docs);
             console.log(copy);
-            const mostLikedDocs=copy.filter(doc=>doc.category===category).sort((doc1,doc2)=>doc2.likeCount-doc1.likeCount);
+            const mostLikedDocs=docs.filter(doc=>doc.category===category).sort((doc1,doc2)=>doc2.likeCount-doc1.likeCount);
             setCopy(mostLikedDocs);
         }
-        setCategory("General");
+       setCategory("General");
         setValue("recent");
         modalRef.current.style.display="none";
 
@@ -104,8 +99,7 @@ function PublicSpace() {
 
             <button className="add-filters" disabled={!docs} onClick={handleClick}> Add Filters </button>
             <button className="remove-filters" onClick={handleRemove}>Remove Filters</button>
-            <p style={{textAlign:"center",fontWeight:"bold",fontSize:"0.65rem",marginTop:"1rem"}}>(Note: Use Remove Filter before adding new filters)</p>
-
+           
             <div ref={modalRef} className="modal" id="modal">
                 <span ref={closeBtn} className="close">&times;</span>
                 
