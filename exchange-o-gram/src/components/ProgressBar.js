@@ -4,17 +4,17 @@ import {useEffect} from "react"
 import useStorage from '../hooks/useStorage'
 
 
-function ProgressBar({file,setfile,user,category,setUser,setModal}) {
-    const {url,progress}=useStorage(file,user,category);
+function ProgressBar({file,setfile,username,category,setUsername,setModal}) {
+    const {url,progress}=useStorage(file,username,category);
 
     useEffect(()=>{
         if(url)
         {
             setfile(null);
-            setUser('');
+            setUsername('');
             setModal(false);
         }
-    },[url,setfile,setUser,setModal])
+    },[url,setfile,setUsername,setModal])
     
     return (
         <div style={{padding:"1rem"}}>

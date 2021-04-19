@@ -1,10 +1,12 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import Login from "./login";
 import {firebaseApp} from "../firebase";
 import PersonalUploader from "./PersonalUploader";
 import PersonalImageGrid from './PersonalImageGrid';
+import {usercontext} from "../hooks/UserContext";
 function PersonalSpace() {
-    const [user,setUser]=useState("");
+    
+    const [user,setUser]=useContext(usercontext);
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const [emailError,setEmailError]=useState("");

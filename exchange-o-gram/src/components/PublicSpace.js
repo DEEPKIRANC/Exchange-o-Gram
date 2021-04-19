@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useRef} from 'react'
+import React,{useState,useEffect,useRef,useContext} from 'react'
 import "../styles/publicspace.css";
 import useFirestore from "../hooks/useFirestore";
 import firebase from "firebase";
@@ -7,7 +7,9 @@ import "animate.css";
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import {usercontext} from "../hooks/UserContext";
 function PublicSpace() {
+    const [user,setUser]=useContext(usercontext);
     const [likeStatus,setLikeStatus]=useState(false);
     const [value,setValue]=useState("recent"); //filter radio button
     const [category,setCategory]=useState("General");//category dropdown
@@ -16,15 +18,32 @@ function PublicSpace() {
     const closeBtn=useRef();
     
     const updateLikeCounter=(id)=>{
-        const increment=firebase.firestore.FieldValue.increment(1);
-        db.collection("images").doc(id).update({likeCount:increment});
-        const btnref=document.getElementById(id);
-        btnref.innerHTML="Liked";
-        btnref.style.color="#D1D5DB";
-        btnref.style.borderColor="#D1D5DB";
-        btnref.disabled=true;
-        setLikeStatus(!likeStatus);
-      
+        if(!user)
+        {
+            alert("You need to login to like a picture");
+        }
+        else
+        {
+            const uniqueId=user.uid;    
+            var userList=docs.filter(doc=>doc.id===id).map(doc=>doc.likeCount)[0];
+            if(!userList.includes(uniqueId))
+            {
+
+                db.collection("images").doc(id).update({likeCount:firebase.firestore.FieldValue.arrayUnion(uniqueId)});
+              
+            
+                setLikeStatus(!likeStatus);
+            }
+            else
+            {
+                alert("You have already liked this picture");
+            }
+            const btnref=document.getElementById(id);
+            btnref.innerHTML="Liked";
+            btnref.style.color="#D1D5DB";
+            btnref.style.borderColor="#D1D5DB";
+            btnref.disabled=true;
+    }
         
     }
 
@@ -77,7 +96,7 @@ function PublicSpace() {
         {
             setCopy(docs);
             console.log(copy);
-            const mostLikedDocs=docs.filter(doc=>doc.category===category).sort((doc1,doc2)=>doc2.likeCount-doc1.likeCount);
+            const mostLikedDocs=docs.filter(doc=>doc.category===category).sort((doc1,doc2)=>doc2.likeCount.length-doc1.likeCount.length);
             setCopy(mostLikedDocs);
         }
        setCategory("General");
@@ -135,9 +154,9 @@ function PublicSpace() {
                        <img className="animate__animated animate__fadeInUp" src={doc.url}/>
                        <h4>Uploaded By : {doc.user}</h4>
                        <h5>Category : {doc.category}</h5>
-                       <h5>Liked By {doc.likeCount} people </h5>
+                       <h5>Liked By {doc.likeCount.length} people </h5>
                        <div className="choices">
-                            <button id={doc.id} className="likeBtn" onClick={()=>updateLikeCounter(doc.id)}>Like</button>
+                            <button id={doc.id}  className="likeBtn" onClick={()=>updateLikeCounter(doc.id)}>Like</button>
                             
                        </div>    
                     </div>    

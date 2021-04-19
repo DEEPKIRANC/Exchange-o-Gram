@@ -137,9 +137,9 @@ function Uploader() {
                 {(file && modalState) && <ProgressBar
                  file={file} 
                  setfile={setFile}
-                 user={username} 
+                 username={username} 
                  category={category} 
-                 setUser={setUsername} 
+                 setUsername={setUsername} 
                  setCategory={setCategory} 
                  setModal={setModalstate}
                  />}

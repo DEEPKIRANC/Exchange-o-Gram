@@ -1,7 +1,10 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import "../styles/header.css";
 import {Link} from "react-router-dom";
-function header() {
+import {usercontext} from "../hooks/UserContext";
+
+function Header() {
+    const [user,setUser]=useContext(usercontext);
     return (
         <div className="header animate__animated animate__fadeIn">
             <h2 className="title">Exchange-o-Gram <span> 📸 </span></h2>
@@ -10,10 +13,10 @@ function header() {
                 <span>
                     <Link style={{textDecoration:"none",color:"white",fontWeight:"bold"}} to="/">Home</Link>
                 </span>
-                <span><Link style={{textDecoration:"none",color:"white",fontWeight:"bold"}} to="/login">My Space</Link></span>
+                <span><Link style={{textDecoration:"none",color:"white",fontWeight:"bold"}} to="/login">{user?"My Space":"Log In"}</Link></span>
             </div>
         </div>
     )
 }
 
-export default header
+export default Header

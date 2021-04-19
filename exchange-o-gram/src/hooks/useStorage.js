@@ -2,7 +2,7 @@ import  {useState,useEffect} from "react";
 import firebase from "firebase"
 import {projectStorage,db} from "../firebase";
 
-function useStorage(file,user,category) {
+function useStorage(file,username,category) {
     const [url,setUrl]=useState(null);
     const [error,setError]=useState(null);
     const [progress,setProgress]=useState(0);    
@@ -21,9 +21,9 @@ function useStorage(file,user,category) {
      },async()=>{
          const url=await storageRef.getDownloadURL();
          db.collection("images").add({'url':url,
-            'user':user,
+            'user':username,
             'category':category,
-            'likeCount':0,
+            'likeCount':[],
             'createdAt':firebase.firestore.FieldValue.serverTimestamp()
         });    
          setUrl(url);
@@ -31,7 +31,7 @@ function useStorage(file,user,category) {
 
 
 
-    },[file,user,category])
+    },[file,username,category])
 
     return {progress,url,error}
 }
