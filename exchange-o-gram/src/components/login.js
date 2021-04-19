@@ -6,7 +6,7 @@ function login(props) {
     
     return (
         <section className="login">
-        <div className="loginContainer">
+        <div className="loginContainer animate__animated animate__fadeIn">
             <label>Username</label>
             <input type="text" autofocus required value={email} onChange={e=>setEmail(e.target.value)} />
             <p className="errorMsg">{emailError}</p>
@@ -25,7 +25,10 @@ function login(props) {
                 </>
             
             }
-            </div>    
+            </div>
+            <span style={{fontSize:"0.75rem",color:"whitesmoke",fontWeight:"normal"}}>
+               ( Demo Credentials -  User : demo@gmail.com | Password: 123456 )
+            </span>    
         </div>
         </section>
     )

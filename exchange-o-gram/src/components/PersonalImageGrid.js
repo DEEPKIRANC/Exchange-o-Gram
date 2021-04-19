@@ -33,7 +33,7 @@ function PersonalImageGrid(email)
             <div className="image-grid">
             {docs.map((doc)=>(
                 <div key={doc.id} className="image-card">
-                    <img src={doc.url}/>
+                    <img className="animate__animated animate__fadeInUp" src={doc.url}/>
                     <h4> {doc.title}</h4>
                     <div style={style1}>
                         <span style={{fontSize:"0.6rem"}}>(Click on this icon to delete the image)</span>

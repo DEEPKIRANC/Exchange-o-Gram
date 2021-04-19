@@ -36,6 +36,7 @@
       rgba(17, 27, 75, 0.9) 100%
     );
     box-shadow: 0 50px 70px -20px rgba(0, 0, 0, 0.8);
+    animation-duration: 1.5s;
   }
   
   .login .loginContainer label {

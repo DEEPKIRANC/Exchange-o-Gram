@@ -36,12 +36,14 @@ padding:1rem;
     justify-content: space-between;
     align-items: space-between;
     margin-bottom: 1rem;
+    
 }
 .image-card > img
 {
     
     width:320px;
     height:250px;
+    animation-duration: 1.5s;
 }
 
 .choices

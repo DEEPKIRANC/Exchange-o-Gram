@@ -3,7 +3,7 @@ import "../styles/publicspace.css";
 import useFirestore from "../hooks/useFirestore";
 import firebase from "firebase";
 import {db} from "../firebase";
-import AOS from "aos";
+import "animate.css";
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -36,8 +36,9 @@ function PublicSpace() {
     useEffect(()=>{
         setCopy(docs);
     },[likeStatus,docs])
+
+
     useEffect(() => {
-        AOS.init({duration:2000});
         
         var list=localStorage.getItem("docsList");
         if(list)
@@ -129,8 +130,9 @@ function PublicSpace() {
             
             <div className="image-grid">
                {copy.map((doc)=>(
-                    <div data-aos="fade-up" key={doc.id} className="image-card">
-                       <img src={doc.url}/>
+                    
+                    <div  key={doc.id} className="image-card">
+                       <img className="animate__animated animate__fadeInUp" src={doc.url}/>
                        <h4>Uploaded By : {doc.user}</h4>
                        <h5>Category : {doc.category}</h5>
                        <h5>Liked By {doc.likeCount} people </h5>
