@@ -10,18 +10,22 @@ function Uploader() {
     const [error,setError]=useState("");
 
 
+    // setting image dimensions and accepted types
     const MAX_WIDTH = 320;
     const MAX_HEIGHT = 320;
     const MIME_TYPE = "image/jpeg";
     const QUALITY =1.0;
 
     const types=["image/png","image/jpeg"];
-
+    
+    // Get reference of file input,modal and close button
     const fileRef=useRef();
     const divModal=useRef();
     const closeBtn=useRef();
+
+    //Show uploader after an image is uploaded by the user
     const openUploader=()=>{
-        console.log(divModal);
+      //  console.log(divModal);
         divModal.current.style.display="block";
         fileRef.current.value=null;
         closeBtn.current.onclick=function()
@@ -31,13 +35,13 @@ function Uploader() {
         }
     }
 
-    //
+    // calculate the width and height, constraining the proportions
 
     function calculateSize(img, maxWidth, maxHeight) {
         let width = img.width;
         let height = img.height;
       
-        // calculate the width and height, constraining the proportions
+        
         if (width > height) {
           if (width > maxWidth) {
             height = Math.round((height * maxWidth) / width);
@@ -53,11 +57,11 @@ function Uploader() {
       }
       
 
-    //handling Images
+    //handling image upload and reducing image size and dimensions before uploading it to firebase storage
 
     const changeHandler=(e)=>{
         let selected=e.target.files[0];
-        console.log(selected);
+      //  console.log(selected);
         if(selected && types.includes(selected.type))
         {
             // code for image compression
@@ -94,7 +98,7 @@ function Uploader() {
            
             
             setError("");
-            console.log(file);
+           // console.log(file);
         }
         else
         {
@@ -103,24 +107,15 @@ function Uploader() {
         }
     }
 
-
-
-
     //form submission for image upload
-
-
-
 
     const submitImage=(e)=>{
         e.preventDefault();
         divModal.current.style.display="none";
-        console.log("User" ,username , "Category : ",category);
+       // console.log("User" ,username , "Category : ",category);
         setModalstate(true);
     
     }
-
-
-
     return (
         <div className="uploadSection">
                 <h3>Welcome To <i style={{color:'#DB2777'}}>Exchange-o-Gram</i></h3>
@@ -150,7 +145,13 @@ function Uploader() {
                     <span ref={closeBtn} className="close">&times;</span>
                     <div className="upload__image">
                         <input ref={fileRef} type="file" onChange={changeHandler}/>
-                        <input required="required" value={username} onChange={(e)=>setUsername(e.target.value)} style={{paddingLeft:"0.5rem"}} type="text" placeholder="Uploaded By.." />
+                        <input
+                         required="required" 
+                         value={username} 
+                         onChange={(e)=>setUsername(e.target.value)} 
+                         style={{paddingLeft:"0.5rem"}} 
+                         type="text" 
+                         placeholder="Uploaded By.." />
                         <div>
                             <label style={{fontSize:"0.80rem",fontWeight:"bold"}} >Choose a category : </label>
                             <select  name="category" id="category" value={category} onChange={e=>setCategory(e.target.value)}>

@@ -18,6 +18,7 @@ padding:1rem;
 
 .image-grid
 {
+    
     padding-top:2rem;
     width:100%;
     display:flex;
@@ -27,7 +28,7 @@ padding:1rem;
 }
 .image-card
 {
-    
+    border-radius:15px;
     padding:0.5rem;
     background-color: white;
     box-shadow: 5px 5px 5px #333;

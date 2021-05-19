@@ -7,7 +7,8 @@ export const usercontext=createContext();
 export function UserContext(props)
 {
     const [user,setUser]=useState("");
-    return <usercontext.Provider value={[user,setUser]}>
+    // passing user and setUser to Provider for consumption i.e global memory
+    return <usercontext.Provider value={[user,setUser]}>    
         {props.children}
     </usercontext.Provider>    
 

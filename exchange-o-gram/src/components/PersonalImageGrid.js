@@ -3,19 +3,22 @@ import usePersonalFirestore from "../hooks/usePersonalFirestore";
 import "../styles/publicspace.css";
 import DeleteIcon from '@material-ui/icons/Delete';
 import {db}  from "../firebase";
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function PersonalImageGrid(email) 
 {
-    
+    // retrieve images from firestore hook
     const {docs,setDocs}=usePersonalFirestore("personalimages",email);
     
+    // function to delete the images
     const deleteImage=(id)=>{
         db.collection("personalimages").doc(id).delete().then(()=>{
-            alert("Image deleted successfully!");
+            toast.success("Picture deleted successfully",{position:"top-right"});
         })
         .catch(()=>{
-            alert("An Error occurred while deleting the image.");
-        })
+            toast.error("An Error occurred while deleting the image",{position:"top-right"});
+                    })
     }
 
     const style1={
@@ -25,6 +28,7 @@ function PersonalImageGrid(email)
         paddingTop:"1rem"
     }
     return (
+        <>
         <div>
            {docs && 
 
@@ -43,6 +47,8 @@ function PersonalImageGrid(email)
    ))}  
         </div>}
     </div>
+    <ToastContainer/>
+    </>
     )
 }
 

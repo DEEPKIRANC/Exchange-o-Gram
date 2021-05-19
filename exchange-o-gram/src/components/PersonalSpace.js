@@ -4,6 +4,9 @@ import {firebaseApp} from "../firebase";
 import PersonalUploader from "./PersonalUploader";
 import PersonalImageGrid from './PersonalImageGrid';
 import {usercontext} from "../hooks/UserContext";
+
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function PersonalSpace() {
     
     const [user,setUser]=useContext(usercontext);
@@ -45,7 +48,7 @@ function PersonalSpace() {
                         break;
                     }
             })
-          alert("You are being logged in!"); 
+          toast.success('Login Successfull!',{position:"top-center"}); 
         }
     
 
@@ -69,13 +72,14 @@ function PersonalSpace() {
                        break;
                    }
            })
-         
+           toast.success('Signed Up Successfully!',{position:"top-center"});
    }
 
 
    const handleLogOut=()=>{
      firebaseApp.auth().signOut();
-     alert("You have been logged out!");
+     toast.dark('Signed out!',{position:"top-center"});
+
    }
 
    const authListener=()=>{

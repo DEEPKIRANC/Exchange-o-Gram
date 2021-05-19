@@ -1,10 +1,13 @@
 import React from 'react'
 import "../styles/login.css";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function login(props) {
     const {user,setUser,email,setEmail,password,setPassword,handleLogin,handleSignup,emailError,passwordError,hasAccount,setHasAccount}=props;
     
     return (
+        <>
         <section className="login">
         <div className="loginContainer animate__animated animate__fadeIn">
             <label>Username</label>
@@ -31,6 +34,8 @@ function login(props) {
             </span>    
         </div>
         </section>
+        <ToastContainer />
+        </>
     )
 }
 

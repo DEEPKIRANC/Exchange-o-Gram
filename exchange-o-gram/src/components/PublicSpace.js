@@ -8,6 +8,8 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {usercontext} from "../hooks/UserContext";
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function PublicSpace() {
     const [user,setUser]=useContext(usercontext);
     const [likeStatus,setLikeStatus]=useState(false);
@@ -17,10 +19,14 @@ function PublicSpace() {
     const modalRef=useRef();
     const closeBtn=useRef();
     
+
+    // Syntax for updating likes on a particular picture
     const updateLikeCounter=(id)=>{
         if(!user)
         {
-            alert("You need to login to like a picture");
+            toast.warning('You need to login to like a picture',{position:"top-right"}); 
+       
+            
         }
         else
         {
@@ -36,7 +42,8 @@ function PublicSpace() {
             }
             else
             {
-                alert("You have already liked this picture");
+                toast.info('You have already liked this picture',{position:"top-right"}); 
+       
             }
             const btnref=document.getElementById(id);
             btnref.innerHTML="Liked";
@@ -48,7 +55,7 @@ function PublicSpace() {
     }
 
 
-
+    // fetching images from Firestore
     const {docs,setDocs}=useFirestore("images");
     
     //Using Local storage to improve the bandwidth usage and storing a copy of docs returned to implement filter options!
@@ -72,6 +79,7 @@ function PublicSpace() {
     }, [docs])
 
 
+    //Event handler to open/close modal(for applying filters)
     const handleClick=()=>{
         modalRef.current.style.display="block";
 
@@ -89,17 +97,17 @@ function PublicSpace() {
         {
             setCopy(docs);
             const recentDocs=docs.filter(doc=>doc.category===category).sort((doc1,doc2)=>doc2.createdAt-doc1.createdAt);
-            setCopy(recentDocs);
+            setCopy(recentDocs); // updating local copy (filtered version)
 
         }
         else
         {
             setCopy(docs);
-            console.log(copy);
+           // console.log(copy);
             const mostLikedDocs=docs.filter(doc=>doc.category===category).sort((doc1,doc2)=>doc2.likeCount.length-doc1.likeCount.length);
             setCopy(mostLikedDocs);
         }
-       setCategory("General");
+       setCategory("General");// setting state to default values
         setValue("recent");
         modalRef.current.style.display="none";
 
@@ -109,9 +117,10 @@ function PublicSpace() {
     const handleRemove=(e)=>
     {
         console.log(docs);
-        setCopy(docs);
+        setCopy(docs); //Updating local copy to default list(without any filter)
     }
     return (
+        <>
         <div className="publicspace">
             
             <span className="secondary">Pictures Uploaded till now : {copy.length}</span>
@@ -166,6 +175,8 @@ function PublicSpace() {
             </div>    
 }
         </div>
+        <ToastContainer/>
+        </>
     )
 }
 
