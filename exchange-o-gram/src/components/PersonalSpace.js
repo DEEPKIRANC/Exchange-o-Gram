@@ -34,6 +34,9 @@ function PersonalSpace() {
          firebaseApp
          .auth()
          .signInWithEmailAndPassword(email,password)
+         .then(()=>{
+            toast.success('Login Successfull!',{position:"top-center"});
+         })
          .catch(err=>
             {
                 switch(err.code)
@@ -42,22 +45,27 @@ function PersonalSpace() {
                     case "auth/user-disabled":
                     case "auth/user-not-found":
                         setEmailError(err.message);
+                        clearInputs();
                         break;
                     case "auth/wrong-password":
-                        setPasswordError(err.message);           
+                        setPasswordError(err.message);
+                        clearInputs();           
                         break;
                     }
             })
-          toast.success('Login Successfull!',{position:"top-center"}); 
+           
         }
     
 
     const handleSignup=()=>{
-        console.log("Signup clicked");
+       // console.log("Signup clicked");
         clearErrors();
         firebaseApp
         .auth()
         .createUserWithEmailAndPassword(email,password)
+        .then(()=>{
+            toast.success('Signed Up Successfully!',{position:"top-center"});
+        })
         .catch(err=>
            {
                switch(err.code)
@@ -66,13 +74,15 @@ function PersonalSpace() {
                    case "auth/invalid-email":
                    
                        setEmailError(err.message);
+                       clearInputs();
                        break;
                    case "auth/weak-password":
                        setPasswordError(err.message);           
+                       clearInputs();
                        break;
                    }
            })
-           toast.success('Signed Up Successfully!',{position:"top-center"});
+          
    }
 
 
@@ -101,6 +111,7 @@ function PersonalSpace() {
        authListener();
    },[]);
     return (
+        <>
         <div>
             {user?(
             <div>    
@@ -133,6 +144,8 @@ function PersonalSpace() {
            )
             }
         </div>
+        <ToastContainer/>
+        </>
     )
 }
 
